@@ -50,4 +50,16 @@ public class BookDaoImpl implements BookDao {
         return jdbcTemplate.query("SELECT isbn, title, author_id FROM books",
                 new BookRowMapper());
     }
+
+    @Override
+    public void updateBook(String isbn, Book book) {
+        jdbcTemplate.update(
+                "UPDATE books SET isbn = ?, title = ?, author_id = ? WHERE isbn = ?",
+                book.getIsbn(), book.getTitle(), book.getAuthor_id(), isbn);
+    }
+
+    @Override
+    public void deleteBook(String isbn) {
+        jdbcTemplate.update("DELETE FROM books WHERE isbn = ?", isbn);
+    }
 }

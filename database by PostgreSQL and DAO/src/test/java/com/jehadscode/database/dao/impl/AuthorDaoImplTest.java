@@ -60,7 +60,16 @@ class AuthorDaoImplTest {
 
         verify(jdbcTemplate).update(
                 "UPDATE authors SET id = ?, name = ?, age = ? WHERE id = ?",
-                1L, author.getName(), author.getAge(), 3L);
+                1L, "Jehad Hamayel", 22, 3L);
+    }
+
+    @Test
+    public void testThatDeletAuthorGeneratesCorrectSql() {
+        authorDaoImpl.deleteAuthor(1L);
+
+        verify(jdbcTemplate).update(
+                "DELETE FROM authors WHERE id = ?",
+                1L);
     }
 
 }
